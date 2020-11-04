@@ -39,7 +39,7 @@ export default {
   methods: {
     onSubmit: function (evt) {
       var allQuestions = LocalStorage.getItem('questions') || []
-      var currentId = Math.max(allQuestions.map(q => q.id)) + 1
+      var currentId = Math.max(...allQuestions.map(q => q.id)) + 1
       var question = {
         id: currentId,
         name: this.name,
