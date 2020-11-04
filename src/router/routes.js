@@ -7,10 +7,10 @@ const routes = [
     ]
   },
   {
-    path: '/question/:id',
+    path: '/question/:questionId',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '/question/:id', component: () => import('pages/Question.vue') }
+      { path: '/question/:questionId', component: () => import('pages/Question.vue'), props: true }
     ]
   },
   {

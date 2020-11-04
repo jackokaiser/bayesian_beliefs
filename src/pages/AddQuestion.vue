@@ -42,11 +42,23 @@ export default {
       var currentId = Math.max(...allQuestions.map(q => q.id)) + 1
       var question = {
         id: currentId,
-        name: this.name,
-        hypothesis: this.yesno ? ['Yes', 'No'] : []
+        name: this.name
       }
       allQuestions.push(question)
       LocalStorage.set('questions', allQuestions)
+      Object.assign(question, {
+        hypothesis: this.yesno ? [{
+          id: 0,
+          name: 'yes',
+          probability: 0.5
+        }, {
+          id: 1,
+          name: 'no',
+          probability: 0.5
+        }
+        ] : []
+      })
+      LocalStorage.set('question/' + question.id, question)
       this.$router.push('/')
     },
     onReset: function (evt) {
