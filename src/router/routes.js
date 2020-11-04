@@ -13,7 +13,13 @@ const routes = [
       { path: '/question/:id', component: () => import('pages/Question.vue') }
     ]
   },
-
+  {
+    path: '/add-question',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/AddQuestion.vue') }
+    ]
+  },
   // Always leave this as last one,
   // but you can also remove it
   {
