@@ -59,7 +59,8 @@ export default {
           name: 'no',
           prob: 0.5
         }
-        ] : []
+        ] : [],
+        evidences: []
       })
       LocalStorage.set('question/' + question.id, question)
       this.$router.push('/')

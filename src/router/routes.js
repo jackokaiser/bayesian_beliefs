@@ -8,28 +8,28 @@ const routes = [
   },
   {
     path: '/question/:questionId',
-    component: () => import('layouts/MainLayout.vue'),
+    component: () => import('layouts/ViewLayout.vue'),
     children: [
       { path: '/question/:questionId', component: () => import('pages/Question.vue'), name: 'question', props: true }
     ]
   },
   {
     path: '/question/:questionId/add-evidence',
-    component: () => import('layouts/MainLayout.vue'),
+    component: () => import('layouts/ViewLayout.vue'),
     children: [
       { path: '/question/:questionId/add-evidence', component: () => import('pages/AddEvidence.vue'), name: 'add-evidence', props: true }
     ]
   },
   {
     path: '/question/:questionId/add-hypothesis',
-    component: () => import('layouts/MainLayout.vue'),
+    component: () => import('layouts/ViewLayout.vue'),
     children: [
       { path: '/question/:questionId/add-hypothesis', component: () => import('pages/AddHypothesis.vue'), name: 'add-hypothesis', props: true }
     ]
   },
   {
     path: '/add-question',
-    component: () => import('layouts/MainLayout.vue'),
+    component: () => import('layouts/ViewLayout.vue'),
     children: [
       { path: '', component: () => import('pages/AddQuestion.vue') }
     ]

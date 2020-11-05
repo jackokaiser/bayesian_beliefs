@@ -70,6 +70,11 @@ export default {
       const posteriors = this.question.hypothesis.map((hyp) => hyp.prob)
       console.log('posteriors: ', posteriors)
       console.log('new probs should sum to 1:', posteriors.reduce((a, b) => a + b))
+      this.question.evidences.push({
+        name: this.name,
+        likelihood: this.likelihood,
+        date: new Date()
+      })
       LocalStorage.set('question/' + this.question.id, this.question)
       this.$router.push({ name: 'question', params: { questionId: this.question.id } })
     },
