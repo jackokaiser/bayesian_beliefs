@@ -1,5 +1,5 @@
 <template>
-  <div class="bar" :style='style' @mousedown='onMouseDown'>
+  <div class="bar" :style='style' @mousedown='onMouseDown' @touchstart='onMouseDown'>
     <slot></slot>
     {{ currentProb.toFixed(2) }}
   </div>
@@ -29,6 +29,7 @@ export default {
   methods: {
     onMouseDown: function (event) {
       if (!this.editable) return
+      console.log('Mouse down!')
       event.preventDefault()
       // get the mouse cursor position at startup:
       this.clientX = event.clientX
@@ -36,6 +37,8 @@ export default {
       document.onmouseup = this.onMouseUp
     },
     onMouseMove: function (event) {
+      console.log('Mouse move!')
+
       const magicScale = 400
       var offset = (event.clientX - this.clientX) / magicScale
       this.clientX = event.clientX

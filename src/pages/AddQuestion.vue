@@ -53,11 +53,11 @@ export default {
         hypothesis: this.yesno ? [{
           id: 0,
           name: 'yes',
-          probability: 0.5
+          prob: 0.5
         }, {
           id: 1,
           name: 'no',
-          probability: 0.5
+          prob: 0.5
         }
         ] : []
       })

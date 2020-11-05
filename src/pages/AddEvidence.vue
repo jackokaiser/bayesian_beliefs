@@ -13,20 +13,21 @@
         lazy-rules
         :rules="[ val => val && val.length > 0 || 'Please enter an event']"
       />
-      <h3> What is the likelihood of this event, if the following hypothesis were true? </h3>
+      <h4> Event likelihood </h4>
+      <p> What if the probability of this event happening, if the hypothesis were true? </p>
       <div class="column">
         <probability-bar v-for='hyp in question.hypothesis'
                          :key='hyp.id'
-                         v-model='likelihood[hyp.id]'
+                         v-model='likelihood[hyp.id].prob'
                          editable>
           {{ hyp.name }}
         </probability-bar>
       </div>
 
-        <div>
-          <q-btn label="Submit" type="submit" color="primary"/>
-          <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
-        </div>
+      <div>
+        <q-btn label="Submit" type="submit" color="primary"/>
+        <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
+      </div>
     </q-form>
 
   </div>
@@ -42,9 +43,8 @@ export default {
   props: ['questionId'],
   data: function () {
     var question = LocalStorage.getItem('question/' + this.questionId)
-    const nHyp = question.hypothesis.length
     var likelihood = question.hypothesis.reduce(function (ret, hyp) {
-      ret[hyp.id] = 1.0 / nHyp
+      ret[hyp.id] = { prob: 0.5 }
       return ret
     }, {})
 
@@ -56,41 +56,29 @@ export default {
   },
   methods: {
     onSubmit: function (evt) {
+      /* todo: also add evidence to evidence list */
+
       /* update beliefs using the bayes formula */
-      const marginalLikelihood = Object.values(this.likelihood).reduce((a, b) => a + b)
+      var marginalLikelihood = 0.0
       this.question.hypothesis.forEach((hyp) => {
-        hyp.probability = hyp.probability * this.likelihood[hyp.id] / marginalLikelihood
-      }, this)
-
-      debugger
-      Object.values(this.question.hypothesis).reduce((a, b) => a +b) === 1.
-
-      var allQuestions = LocalStorage.getItem('questions') || []
-      var currentId = Math.max(...allQuestions.map(q => q.id)) + 1
-      var question = {
-        id: currentId,
-        name: this.name
-      }
-      allQuestions.push(question)
-      LocalStorage.set('questions', allQuestions)
-      Object.assign(question, {
-        hypothesis: this.yesno ? [{
-          id: 0,
-          name: 'yes',
-          probability: 0.5
-        }, {
-          id: 1,
-          name: 'no',
-          probability: 0.5
-        }
-        ] : []
+        marginalLikelihood += hyp.prob * this.likelihood[hyp.id].prob
       })
-      LocalStorage.set('question/' + question.id, question)
-      this.$router.push({ name: 'question', params: { questionId: question.id } })
+      console.log('marginal:', marginalLikelihood)
+      this.question.hypothesis.forEach((hyp) => {
+        hyp.prob = hyp.prob * this.likelihood[hyp.id].prob / marginalLikelihood
+      }, this)
+      const posteriors = this.question.hypothesis.map((hyp) => hyp.prob)
+      console.log('posteriors: ', posteriors)
+      console.log('new probs should sum to 1:', posteriors.reduce((a, b) => a + b))
+      LocalStorage.set('question/' + this.question.id, this.question)
+      this.$router.push({ name: 'question', params: { questionId: this.question.id } })
     },
     onReset: function (evt) {
-      this.name = ''
-      this.yesno = true
+      for (const [key, val] of Object.entries(this.likelihood)) {
+        console.log('previous prob: ', val)
+        this.likelihood[key].prob = 0.5
+        this.name = ''
+      }
     }
   }
 }

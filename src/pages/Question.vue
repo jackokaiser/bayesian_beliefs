@@ -4,7 +4,7 @@
     <div class="column">
       <probability-bar v-for='hyp in question.hypothesis'
                        :key='hyp.id'
-                       :value="hyp.probability">
+                       :value="hyp.prob">
         {{ hyp.name }}
       </probability-bar>
     </div>
