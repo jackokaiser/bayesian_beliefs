@@ -14,6 +14,20 @@ const routes = [
     ]
   },
   {
+    path: '/question/:questionId/add-evidence',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '/question/:questionId/add-evidence', component: () => import('pages/AddEvidence.vue'), name: 'add-evidence', props: true }
+    ]
+  },
+  {
+    path: '/question/:questionId/add-hypothesis',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '/question/:questionId/add-hypothesis', component: () => import('pages/AddHypothesis.vue'), name: 'add-hypothesis', props: true }
+    ]
+  },
+  {
     path: '/add-question',
     component: () => import('layouts/MainLayout.vue'),
     children: [
