@@ -1,9 +1,9 @@
 <template>
-  <div class="row" :style="probStyle" @mousedown='onMouseDown' @touchstart='onMouseDown'>
+  <div class="row justify-center align-center q-pa-sm" :style="probStyle" @mousedown='onMouseDown' @touchstart='onMouseDown'>
     <span class="col-10 overflow-hidden">
       <slot></slot>
     </span>
-    <span class="col-2">
+    <span class="col-1">
       {{ currentProb.toFixed(2) }}
     </span>
   </div>

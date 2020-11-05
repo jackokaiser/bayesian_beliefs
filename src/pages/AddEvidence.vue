@@ -1,12 +1,13 @@
 <template>
-  <div class="q-pa-md" style="max-width: 400px">
+  <div class="q-pa-md">
     <q-form
       @submit="onSubmit"
       @reset="onReset"
       class="q-gutter-md"
     >
-      <h4> Add an event </h4>
+      <h5> Add an event </h5>
       <q-input
+        style="max-width: 400px"
         filled
         v-model="name"
         label="Event name"

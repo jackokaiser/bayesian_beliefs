@@ -5,6 +5,7 @@
       @reset="onReset"
       class="q-gutter-md"
     >
+      <h5> Add a question </h5>
       <q-input
         filled
         v-model="name"

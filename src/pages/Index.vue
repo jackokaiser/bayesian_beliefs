@@ -1,6 +1,6 @@
 <template>
   <div class="column q-pa-sm">
-    <h4>Your questions</h4>
+    <h5>Your questions</h5>
     <div class="row items-start q-gutter-md">
       <router-link
         v-for='question in questions'

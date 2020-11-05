@@ -1,6 +1,7 @@
 <template>
   <div class="q-pa-sm">
-    <h5> {{ question.name }} </h5>
+    <h4> {{ question.name }} </h4>
+    <h5> Your current beliefs: </h5>
     <div class="column q-gutter-sm">
       <probability-bar
         v-for='hyp in question.hypothesis'
