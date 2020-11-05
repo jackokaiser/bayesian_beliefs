@@ -1,20 +1,25 @@
 <template>
-  <div class="q-pa-md row items-start q-gutter-md">
-    <router-link
-      v-for='question in questions'
-      :key='question.id'
-      tag="span"
-      :to="questionUrl(question)"
-    >
-      <q-card>
-        <q-card-section>
-          <div class="text-h6">{{ question.name }}</div>
-        </q-card-section>
-      </q-card>
-    </router-link>
-    <router-link :to="'/add-question'" tag="span" round>
-      <q-btn round color="primary" icon="add"/>
-    </router-link>
+  <div class="column q-pa-sm">
+    <h4>Your questions</h4>
+    <div class="row items-start q-gutter-md">
+      <router-link
+        v-for='question in questions'
+        :key='question.id'
+        tag="span"
+        :to="questionUrl(question)"
+      >
+        <q-card>
+          <q-card-section>
+            <div class="text-h6">{{ question.name }}</div>
+          </q-card-section>
+        </q-card>
+      </router-link>
+      <div class="row">
+        <q-page-sticky position="bottom-right" :offset="[18, 18]">
+          <q-btn fab icon="add" color="accent" @click="$router.push('/add-question')" />
+        </q-page-sticky>
+      </div>
+    </div>
   </div>
 </template>
 

@@ -1,10 +1,16 @@
 <template>
-  <div class="bar" :style='style' @mousedown='onMouseDown' @touchstart='onMouseDown'>
-    <slot></slot>
-    {{ currentProb.toFixed(2) }}
+  <div class="row" :style="probStyle" @mousedown='onMouseDown' @touchstart='onMouseDown'>
+    <span class="col-10 overflow-hidden">
+      <slot></slot>
+    </span>
+    <span class="col-2">
+      {{ currentProb.toFixed(2) }}
+    </span>
   </div>
 </template>
 <script>
+import { colors } from 'quasar'
+
 export default {
   name: 'ProbabilityBar',
   props: {
@@ -22,8 +28,15 @@ export default {
     }
   },
   computed: {
-    style: function () {
-      return { width: '' + this.currentProb * 100 + '%' }
+    probStyle: function () {
+      var before = this.currentProb * 100 - 5 + '%'
+      var after = this.currentProb * 100 + '%'
+      return {
+        background: 'linear-gradient(90deg,' +
+                    colors.getBrand('primary') + ' 0%,' +
+                    colors.getBrand('primary') + ' ' + before +
+                    ', white ' + after + ')'
+      }
     }
   },
   methods: {
@@ -53,9 +66,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
- .bar {
-   background-color: red;
- }
-</style>

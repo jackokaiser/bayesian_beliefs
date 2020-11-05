@@ -1,19 +1,30 @@
 <template>
-  <div>
-    <h2> {{ question.name }} </h2>
-    <div class="column">
-      <probability-bar v-for='hyp in question.hypothesis'
-                       :key='hyp.id'
-                       :value="hyp.prob">
+  <div class="q-pa-sm">
+    <h5> {{ question.name }} </h5>
+    <div class="column q-gutter-sm">
+      <probability-bar
+        v-for='hyp in question.hypothesis'
+        :key='hyp.id'
+        :value="hyp.prob">
         {{ hyp.name }}
       </probability-bar>
     </div>
-    <router-link :to="{name: 'add-hypothesis', params: {questionId: question.id}}" tag="span" round>
-      <q-btn round color="primary" icon="add"/>
-    </router-link>
-    <router-link :to="{name: 'add-evidence', params: {questionId: question.id}}" tag="span" round>
-      <q-btn round color="primary" icon="add"/>
-    </router-link>
+    <div class="row">
+      <q-page-sticky position="bottom-right" :offset="[18, 18]">
+        <q-btn fab icon="add" color="accent">
+          <q-menu auto-close>
+            <q-list style="min-width: 100px">
+              <q-item clickable @click="$router.push({name: 'add-evidence', params: {questionId: question.id}})">
+                <q-item-section>Add event</q-item-section>
+              </q-item>
+              <q-item clickable @click="$router.push({name: 'add-hypothesis', params: {questionId: question.id}})">
+                <q-item-section>Add hypothesis</q-item-section>
+              </q-item>
+            </q-list>
+          </q-menu>
+        </q-btn>
+      </q-page-sticky>
+    </div>
   </div>
 </template>
 

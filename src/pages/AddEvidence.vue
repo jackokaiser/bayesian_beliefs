@@ -5,17 +5,18 @@
       @reset="onReset"
       class="q-gutter-md"
     >
+      <h4> Add an event </h4>
       <q-input
         filled
         v-model="name"
-        label="Event"
+        label="Event name"
         hint="example: I do not see a curvature"
         lazy-rules
         :rules="[ val => val && val.length > 0 || 'Please enter an event']"
       />
-      <h4> Event likelihood </h4>
+      <h5> Event likelihood </h5>
       <p> What if the probability of this event happening, if the hypothesis were true? </p>
-      <div class="column">
+      <div class="column q-gutter-sm">
         <probability-bar v-for='hyp in question.hypothesis'
                          :key='hyp.id'
                          v-model='likelihood[hyp.id].prob'
