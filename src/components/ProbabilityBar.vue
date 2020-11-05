@@ -28,6 +28,7 @@ export default {
   },
   methods: {
     onMouseDown: function (event) {
+      if (!this.editable) return
       event.preventDefault()
       // get the mouse cursor position at startup:
       this.clientX = event.clientX
@@ -39,10 +40,10 @@ export default {
       var offset = (event.clientX - this.clientX) / magicScale
       this.clientX = event.clientX
       this.currentProb = Math.max(Math.min(this.currentProb + offset, 1), 0)
-      console.log('offset: ', offset, 'currentProb: ', this.currentProb)
       this.$emit('input', this.currentProb)
     },
     onMouseUp: function (event) {
+      if (!this.editable) return
       document.onmouseup = null
       document.onmousemove = null
     }
