@@ -11,7 +11,7 @@
         label="Event"
         hint="example: I do not see a curvature"
         lazy-rules
-        :rules="[ val => val && val.length > 0 || 'Please enter a question']"
+        :rules="[ val => val && val.length > 0 || 'Please enter an event']"
       />
       <h3> What is the likelihood of this event, if the following hypothesis were true? </h3>
       <div class="column">
@@ -56,6 +56,15 @@ export default {
   },
   methods: {
     onSubmit: function (evt) {
+      /* update beliefs using the bayes formula */
+      const marginalLikelihood = Object.values(this.likelihood).reduce((a, b) => a + b)
+      this.question.hypothesis.forEach((hyp) => {
+        hyp.probability = hyp.probability * this.likelihood[hyp.id] / marginalLikelihood
+      }, this)
+
+      debugger
+      Object.values(this.question.hypothesis).reduce((a, b) => a +b) === 1.
+
       var allQuestions = LocalStorage.getItem('questions') || []
       var currentId = Math.max(...allQuestions.map(q => q.id)) + 1
       var question = {
@@ -77,7 +86,7 @@ export default {
         ] : []
       })
       LocalStorage.set('question/' + question.id, question)
-      this.$router.push('/')
+      this.$router.push({ name: 'question', params: { questionId: question.id } })
     },
     onReset: function (evt) {
       this.name = ''

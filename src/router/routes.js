@@ -10,7 +10,7 @@ const routes = [
     path: '/question/:questionId',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '/question/:questionId', component: () => import('pages/Question.vue'), props: true }
+      { path: '/question/:questionId', component: () => import('pages/Question.vue'), name: 'question', props: true }
     ]
   },
   {
