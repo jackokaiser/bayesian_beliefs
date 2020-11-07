@@ -1,15 +1,38 @@
 <template>
   <div class="q-pa-sm">
     <h4> {{ question.name }} </h4>
-    <h5> Your current beliefs: </h5>
+    <h5> Current beliefs: </h5>
     <div class="column q-gutter-sm">
       <probability-bar
+        color="primary"
+        class="q-pa-sm"
         v-for='hyp in question.hypothesis'
         :key='hyp.id'
         :value="hyp.prob">
         {{ hyp.name }}
       </probability-bar>
     </div>
+    <h5 v-if="question.evidences.length === 0"> No past events </h5>
+    <div v-else>
+      <h5> Past events: </h5>
+      <div class="column">
+        <q-card v-for='ev in question.evidences.slice().reverse()'
+                :key='ev.id'>
+          <q-card-section class="q-gutter-sm">
+            <div class="text-subtitle6">{{ ev.name }}</div>
+            <probability-bar
+              color="secondary"
+              v-for='(prob, hypId) in ev.likelihood'
+              :key='hypId'
+              :value="prob.prob">
+              {{ question.hypothesis | getName(hypId) }}
+            </probability-bar>
+            <p class="text-grey">{{ ev.date | calendar }}</p>
+          </q-card-section>
+        </q-card>
+      </div>
+    </div>
+
     <div class="row">
       <q-page-sticky position="bottom-right" :offset="[18, 18]">
         <q-btn fab icon="add" color="accent">
@@ -40,6 +63,11 @@ export default {
     var question = LocalStorage.getItem('question/' + this.questionId)
     return {
       question
+    }
+  },
+  filters: {
+    getName: function (hypothesis, hypId) {
+      return hypothesis.find(hyp => (hyp.id === parseInt(hypId, 10))).name
     }
   },
   props: ['questionId']

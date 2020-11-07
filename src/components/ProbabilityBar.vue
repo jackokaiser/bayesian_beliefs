@@ -1,10 +1,10 @@
 <template>
-  <div class="row justify-center align-center q-pa-sm" :style="probStyle" @mousedown='onMouseDown' @touchstart='onMouseDown'>
+  <div class="row justify-center align-center" :style="probStyle" @mousedown='onMouseDown' @touchstart='onMouseDown'>
     <span class="col-10 overflow-hidden">
       <slot></slot>
     </span>
     <span class="col-1">
-      {{ currentProb.toFixed(2) }}
+      {{ currentProb | toPercent }}
     </span>
   </div>
 </template>
@@ -17,6 +17,10 @@ export default {
     value: {
       type: Number,
       required: true
+    },
+    color: {
+      type: String,
+      default: 'primary'
     },
     editable: Boolean
   },
@@ -31,12 +35,18 @@ export default {
     probStyle: function () {
       var before = this.currentProb * 100 - 5 + '%'
       var after = this.currentProb * 100 + '%'
+
       return {
         background: 'linear-gradient(90deg,' +
-                    colors.getBrand('primary') + ' 0%,' +
-                    colors.getBrand('primary') + ' ' + before +
+                    colors.getBrand(this.color) + ' 0%,' +
+                    colors.getBrand(this.color) + ' ' + before +
                     ', white ' + after + ')'
       }
+    }
+  },
+  filters: {
+    toPercent: function (val) {
+      return (val * 100).toFixed(1) + '%'
     }
   },
   methods: {

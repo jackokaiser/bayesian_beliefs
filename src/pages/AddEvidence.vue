@@ -20,6 +20,7 @@
       <div class="column q-gutter-sm">
         <probability-bar v-for='hyp in question.hypothesis'
                          :key='hyp.id'
+                         color='secondary'
                          v-model='likelihood[hyp.id].prob'
                          editable>
           {{ hyp.name }}
@@ -71,8 +72,9 @@ export default {
       }, this)
       const posteriors = this.question.hypothesis.map((hyp) => hyp.prob)
       console.log('posteriors: ', posteriors)
-      console.log('new probs should sum to 1:', posteriors.reduce((a, b) => a + b))
+      console.log('new probs sum to 1:', posteriors.reduce((a, b) => a + b))
       this.question.evidences.push({
+        id: this.question.evidences.length,
         name: this.name,
         likelihood: this.likelihood,
         date: new Date()

@@ -40,7 +40,9 @@
     </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <transition appear enter-active-class="animated slideInRight" leave-active-class="animated slideOutLeft" mode="out-in">
+        <router-view />
+      </transition>
     </q-page-container>
   </q-layout>
 </template>
