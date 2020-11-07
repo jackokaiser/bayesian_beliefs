@@ -2,10 +2,9 @@
   <div class="q-pa-sm">
     <h4> {{ question.name }} </h4>
     <h5> Current beliefs: </h5>
-    <div class="column">
+    <div class="column q-gutter-sm">
       <probability-bar
         color="primary"
-        class="q-pa-sm"
         v-for='hyp in question.hypothesis'
         :key='hyp.id'
         :value="hyp.prob">

@@ -10,7 +10,7 @@
         filled
         v-model="name"
         label="Question"
-        hint="example: is the earth flat?"
+        hint="example: does astrology works?"
         lazy-rules
         :rules="[ val => val && val.length > 0 || 'Please enter a question']"
       />

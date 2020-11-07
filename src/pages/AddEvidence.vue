@@ -11,7 +11,7 @@
         filled
         v-model="name"
         label="Event name"
-        hint="example: I do not see a curvature"
+        hint="example: I met an old friend like my horoscope suggested"
         lazy-rules
         :rules="[ val => val && val.length > 0 || 'Please enter an event']"
       />
@@ -59,8 +59,6 @@ export default {
   },
   methods: {
     onSubmit: function (evt) {
-      /* todo: also add evidence to evidence list */
-
       /* update beliefs using the bayes formula */
       var marginalLikelihood = 0.0
       this.question.hypothesis.forEach((hyp) => {
