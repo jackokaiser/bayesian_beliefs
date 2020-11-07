@@ -1,11 +1,31 @@
 <template>
-  <div class="row justify-center align-center" :style="probStyle" @mousedown='onMouseDown' @touchstart='onMouseDown'>
-    <span class="col-10 overflow-hidden">
-      <slot></slot>
-    </span>
-    <span class="col-1">
-      {{ currentProb | toPercent }}
-    </span>
+  <div>
+    <div class="row" v-if="editable">
+      <span class="col-sm-2 col-xs-1">
+        <slot></slot>
+      </span>
+      <span class="col">
+        <q-slider
+          :value="currentProb"
+          @input="setProb"
+          :min="0.001"
+          :max=".999"
+          :step="0.001"
+          :color="color"
+          label
+          :label-value="percent(currentProb)"
+          label-always
+        />
+      </span>
+    </div>
+    <div class="row justify-center align-center" :style="probStyle" v-else>
+      <span class="col-10 overflow-hidden">
+        <slot></slot>
+      </span>
+      <span class="col-1">
+        {{ percent(currentProb) }}
+      </span>
+    </div>
   </div>
 </template>
 <script>
@@ -26,15 +46,13 @@ export default {
   },
   data: function () {
     return {
-      clientX: 0.0,
-      dragInterval: null,
       currentProb: this.value
     }
   },
   computed: {
     probStyle: function () {
-      var before = this.currentProb * 100 - 5 + '%'
-      var after = this.currentProb * 100 + '%'
+      var before = this.percent(this.currentProb - 0.05)
+      var after = this.percent(this.currentProb)
 
       return {
         background: 'linear-gradient(90deg,' +
@@ -44,34 +62,15 @@ export default {
       }
     }
   },
-  filters: {
-    toPercent: function (val) {
-      return (val * 100).toFixed(1) + '%'
-    }
-  },
   methods: {
-    onMouseDown: function (event) {
-      if (!this.editable) return
-      console.log('Mouse down!')
-      event.preventDefault()
-      // get the mouse cursor position at startup:
-      this.clientX = event.clientX
-      document.onmousemove = this.onMouseMove
-      document.onmouseup = this.onMouseUp
+    percent: function (prob) {
+      return (prob * 100).toFixed(1) + '%'
     },
-    onMouseMove: function (event) {
-      console.log('Mouse move!')
-
-      const magicScale = 400
-      var offset = (event.clientX - this.clientX) / magicScale
-      this.clientX = event.clientX
-      this.currentProb = Math.max(Math.min(this.currentProb + offset, 1), 0)
+    setProb: function (prob) {
+      /* set the data in this component */
+      this.currentProb = prob
+      /* propagate to parent v-model */
       this.$emit('input', this.currentProb)
-    },
-    onMouseUp: function (event) {
-      if (!this.editable) return
-      document.onmouseup = null
-      document.onmousemove = null
     }
   }
 }
