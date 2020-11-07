@@ -80,7 +80,7 @@ export default {
         date: new Date()
       })
       LocalStorage.set('question/' + this.question.id, this.question)
-      this.$router.push({ name: 'question', params: { questionId: this.question.id } })
+      this.$router.replace({ name: 'question', params: { questionId: this.question.id } })
     },
     onReset: function (evt) {
       for (const [key, val] of Object.entries(this.likelihood)) {

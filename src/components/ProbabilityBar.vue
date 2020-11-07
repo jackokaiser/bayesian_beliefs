@@ -51,7 +51,7 @@ export default {
   },
   computed: {
     probStyle: function () {
-      var before = this.percent(this.currentProb - 0.05)
+      var before = this.percent(this.currentProb / 2.0)
       var after = this.percent(this.currentProb)
 
       return {

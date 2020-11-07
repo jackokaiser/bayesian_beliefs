@@ -2,7 +2,7 @@
   <div class="q-pa-sm">
     <h4> {{ question.name }} </h4>
     <h5> Current beliefs: </h5>
-    <div class="column q-gutter-sm">
+    <div class="column">
       <probability-bar
         color="primary"
         class="q-pa-sm"
