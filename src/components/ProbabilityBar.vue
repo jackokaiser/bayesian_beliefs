@@ -18,7 +18,7 @@
         />
       </span>
     </div>
-    <div class="row justify-center align-center" :style="probStyle" v-else>
+    <div class="row justify-center align-center rounded-borders" :style="probStyle" v-else>
       <span class="col-10 overflow-hidden">
         <slot></slot>
       </span>
@@ -53,11 +53,12 @@ export default {
     probStyle: function () {
       var before = this.percent(this.currentProb / 2.0)
       var after = this.percent(this.currentProb)
-
+      var col = colors.getBrand(this.color)
+      var lightCol = colors.lighten(col, 25)
       return {
         background: 'linear-gradient(90deg,' +
-                    colors.getBrand(this.color) + ' 0%,' +
-                    colors.getBrand(this.color) + ' ' + before +
+                    lightCol + ' 0%,' +
+                    lightCol + ' ' + before +
                     ', white ' + after + ')'
       }
     }

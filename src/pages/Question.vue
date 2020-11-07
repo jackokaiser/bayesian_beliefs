@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-sm">
     <h4> {{ question.name }} </h4>
-    <h5> Current beliefs: </h5>
+    <h5> Current beliefs </h5>
     <div class="column q-gutter-sm">
       <probability-bar
         color="primary"
@@ -13,7 +13,7 @@
     </div>
     <h5 v-if="question.evidences.length === 0"> No past events </h5>
     <div v-else>
-      <h5> Past events: </h5>
+      <h5> Past events </h5>
       <div class="column">
         <q-card
           class="evidences"
