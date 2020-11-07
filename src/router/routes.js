@@ -7,24 +7,12 @@ const routes = [
     ]
   },
   {
-    path: '/question/:questionId',
+    path: '/question/',
     component: () => import('layouts/ViewLayout.vue'),
     children: [
-      { path: '/question/:questionId', component: () => import('pages/Question.vue'), name: 'question', props: true }
-    ]
-  },
-  {
-    path: '/question/:questionId/add-evidence',
-    component: () => import('layouts/ViewLayout.vue'),
-    children: [
-      { path: '/question/:questionId/add-evidence', component: () => import('pages/AddEvidence.vue'), name: 'add-evidence', props: true }
-    ]
-  },
-  {
-    path: '/question/:questionId/add-hypothesis',
-    component: () => import('layouts/ViewLayout.vue'),
-    children: [
-      { path: '/question/:questionId/add-hypothesis', component: () => import('pages/AddHypothesis.vue'), name: 'add-hypothesis', props: true }
+      { path: ':questionId', component: () => import('pages/Question.vue'), name: 'question', props: true },
+      { path: ':questionId/add-evidence', component: () => import('pages/AddEvidence.vue'), name: 'add-evidence', props: true },
+      { path: ':questionId/add-hypothesis', component: () => import('pages/AddHypothesis.vue'), name: 'add-hypothesis', props: true }
     ]
   },
   {
