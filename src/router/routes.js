@@ -22,6 +22,13 @@ const routes = [
       { path: '', component: () => import('pages/AddQuestion.vue') }
     ]
   },
+  {
+    path: '/about',
+    component: () => import('layouts/ViewLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/About.vue'), name: 'about' }
+    ]
+  },
   // Always leave this as last one,
   // but you can also remove it
   {

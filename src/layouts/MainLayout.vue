@@ -57,12 +57,8 @@ import EssentialLink from 'components/EssentialLink.vue'
 
 const linksData = [
   {
-    title: 'About',
+    title: 'about',
     link: '/about'
-  },
-  {
-    title: 'Settings',
-    link: '/settings'
   }
 ]
 

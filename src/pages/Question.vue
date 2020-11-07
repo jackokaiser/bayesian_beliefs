@@ -16,8 +16,10 @@
     <div v-else>
       <h5> Past events: </h5>
       <div class="column">
-        <q-card v-for='ev in question.evidences.slice().reverse()'
-                :key='ev.id'>
+        <q-card
+          class="evidences"
+          v-for='ev in question.evidences.slice().reverse()'
+          :key='ev.id'>
           <q-card-section class="q-gutter-sm">
             <div class="text-subtitle6">{{ ev.name }}</div>
             <probability-bar
@@ -27,7 +29,7 @@
               :value="prob.prob">
               {{ question.hypothesis | getName(hypId) }}
             </probability-bar>
-            <p class="text-grey">{{ ev.date | calendar }}</p>
+            <div class="text-grey">{{ ev.date | calendar }}</div>
           </q-card-section>
         </q-card>
       </div>
@@ -74,3 +76,9 @@ export default {
 }
 
 </script>
+
+<style lang="scss">
+ .evidences {
+   margin-bottom: 1em;
+ }
+</style>

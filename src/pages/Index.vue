@@ -1,8 +1,9 @@
 <template>
   <div class="column q-pa-sm">
-    <h5>Your questions</h5>
+    <h4>Your questions</h4>
     <div class="row items-start q-gutter-md">
-      <router-link
+      <q-item
+        clickable
         v-for='question in questions'
         :key='question.id'
         tag="span"
@@ -13,7 +14,7 @@
             <div class="text-h6">{{ question.name }}</div>
           </q-card-section>
         </q-card>
-      </router-link>
+      </q-item>
       <div class="row">
         <q-page-sticky position="bottom-right" :offset="[18, 18]">
           <q-btn fab icon="add" color="accent" to="/add-question" />
