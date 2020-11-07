@@ -38,10 +38,10 @@
         <q-btn fab icon="add" color="accent">
           <q-menu auto-close>
             <q-list style="min-width: 100px">
-              <q-item clickable @click="$router.push({name: 'add-evidence', params: {questionId: question.id}})">
+              <q-item clickable :to="{name: 'add-evidence', params: {questionId: question.id}}">
                 <q-item-section>Add event</q-item-section>
               </q-item>
-              <q-item clickable @click="$router.push({name: 'add-hypothesis', params: {questionId: question.id}})">
+              <q-item clickable :to="{name: 'add-hypothesis', params: {questionId: question.id}}">
                 <q-item-section>Add hypothesis</q-item-section>
               </q-item>
             </q-list>

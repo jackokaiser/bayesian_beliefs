@@ -12,7 +12,7 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          Bayesian beliefs
         </q-toolbar-title>
 
       </q-toolbar>

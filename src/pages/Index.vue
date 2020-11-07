@@ -16,7 +16,7 @@
       </router-link>
       <div class="row">
         <q-page-sticky position="bottom-right" :offset="[18, 18]">
-          <q-btn fab icon="add" color="accent" @click="$router.push('/add-question')" />
+          <q-btn fab icon="add" color="accent" to="/add-question" />
         </q-page-sticky>
       </div>
     </div>
