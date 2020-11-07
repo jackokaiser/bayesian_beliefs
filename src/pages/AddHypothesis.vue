@@ -53,7 +53,7 @@ export default {
   methods: {
     onSubmit: function (evt) {
       this.question.hypothesis.forEach((hyp) => {
-        hyp.prob = hyp.prob / (1 + this.hypothesis.prob)
+        hyp.prob = hyp.prob * (1 - this.hypothesis.prob)
       })
       this.question.hypothesis.push(this.hypothesis)
       LocalStorage.set('question/' + this.question.id, this.question)
