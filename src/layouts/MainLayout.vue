@@ -59,6 +59,10 @@ const linksData = [
   {
     title: 'about',
     link: '/about'
+  },
+  {
+    title: 'privacy policy',
+    link: '/privacy-policy'
   }
 ]
 
