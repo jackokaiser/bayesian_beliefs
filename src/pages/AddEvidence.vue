@@ -16,7 +16,36 @@
         :rules="[ val => val && val.length > 0 || 'Please enter an event']"
       />
       <h5> Event likelihood </h5>
-      <p> What if the probability of this event happening, if the hypothesis were true? </p>
+      <!-- <p> What is the probability of this event happening, if the hypothesis were true? </p> -->
+      <div class="row items-center">
+        <p> How likely was this event, if the hypothesis were true? </p>
+        <q-space/>
+        <q-btn round color="primary" icon="help" @click="help = true" />
+        <q-dialog v-model="help">
+          <q-card>
+            <q-card-section>
+              <div class="text-h6">Help</div>
+            </q-card-section>
+            <q-card-section class="q-pt-none">
+              For every hypothesis, evaluate the likelihood of the event, assuming this hypothesis is true.
+            </q-card-section>
+            <q-separator/>
+            <q-card-section>
+              <div class="text-subtitle1">Example</div>
+            </q-card-section>
+                <q-card-section class="q-pt-none">
+              If astrology works (hypothesis "yes"), then I had 100% chance of meeting an old friend today, as my horoscope suggested. Hypothesis "yes": 100%.
+            </q-card-section>
+            <q-card-section class="q-pt-none">
+                If astrology does not work (hypothesis "no"), meeting an old friend by accident would happen maybe one day every 100 days, so 1%. Hypothesis "no": 1%.
+            </q-card-section>
+            <q-card-actions align="right">
+              <q-btn flat label="Got it" color="primary" v-close-popup />
+            </q-card-actions>
+          </q-card>
+        </q-dialog>
+      </div>
+
       <div class="column q-gutter-sm">
         <probability-bar v-for='hyp in question.hypothesis'
                          :key='hyp.id'
@@ -53,6 +82,7 @@ export default {
 
     return {
       name: '',
+      help: false,
       question: question,
       likelihood
     }
@@ -90,3 +120,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.hint {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.54);
+}
+</style>

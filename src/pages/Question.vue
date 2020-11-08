@@ -39,10 +39,10 @@
         <q-btn fab icon="add" color="accent">
           <q-menu auto-close>
             <q-list style="min-width: 100px">
-              <q-item clickable :to="{name: 'add-evidence', params: {questionId: question.id}}">
+              <q-item clickable :disable="question.hypothesis.length === 0" :to="{name: 'add-evidence', params: {questionId: question.id}}">
                 <q-item-section>Add event</q-item-section>
               </q-item>
-              <q-item clickable :to="{name: 'add-hypothesis', params: {questionId: question.id}}">
+              <q-item clickable :disable="isYesNo(question)" :to="{name: 'add-hypothesis', params: {questionId: question.id}}">
                 <q-item-section>Add hypothesis</q-item-section>
               </q-item>
             </q-list>
@@ -69,6 +69,12 @@ export default {
   filters: {
     getName: function (hypothesis, hypId) {
       return hypothesis.find(hyp => (hyp.id === parseInt(hypId, 10))).name
+    }
+  },
+  methods: {
+    isYesNo: function (question) {
+      const hyps = question.hypothesis
+      return (hyps.length === 2) && (hyps[0].name === 'yes') && (hyps[1].name === 'no')
     }
   },
   props: ['questionId']

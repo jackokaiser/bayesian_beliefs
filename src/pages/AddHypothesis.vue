@@ -44,7 +44,7 @@ export default {
     return {
       question: question,
       hypothesis: {
-        prob: 0.20,
+        prob: question.hypothesis.length === 0 ? 1.0 : 0.20,
         name: '',
         id: question.hypothesis.length
       }
@@ -55,13 +55,18 @@ export default {
       this.question.hypothesis.forEach((hyp) => {
         hyp.prob = hyp.prob * (1 - this.hypothesis.prob)
       })
+
+      if (this.question.hypothesis.length === 0) {
+        this.hypothesis.prob = 1.0
+      }
+
       this.question.hypothesis.push(this.hypothesis)
       LocalStorage.set('question/' + this.question.id, this.question)
       this.$router.replace({ name: 'question', params: { questionId: this.question.id } })
     },
     onReset: function (evt) {
       this.hypothesis.name = ''
-      this.hypothesis.prob = 0.20
+      this.hypothesis.prob = this.question.hypothesis.length === 0 ? 1.0 : 0.20
     }
   }
 }
