@@ -20,7 +20,6 @@
 
     <q-drawer
       v-model="leftDrawerOpen"
-      show-if-above
       bordered
       content-class="bg-grey-1"
     >
@@ -63,6 +62,14 @@ const linksData = [
   {
     title: 'privacy policy',
     link: '/privacy-policy'
+  },
+  {
+    title: 'feature request',
+    link: 'https://github.com/jackokaiser/bayesian_beliefs/issues/new?assignees=&labels=&template=feature_request.md&title='
+  },
+  {
+    title: 'bug report',
+    link: 'https://github.com/jackokaiser/bayesian_beliefs/issues/new?assignees=&labels=&template=bug_report.md&title='
   }
 ]
 
