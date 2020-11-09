@@ -18,11 +18,11 @@
         />
       </span>
     </div>
-    <div class="row justify-center align-center rounded-borders" :style="probStyle" v-else>
-      <span class="col-10 overflow-hidden">
+    <div class="row justify-between align-center rounded-borders" :style="probStyle" v-else>
+      <span class="overflow-hidden q-pl-sm">
         <slot></slot>
       </span>
-      <span class="col-1">
+      <span>
         {{ percent(currentProb) }}
       </span>
     </div>

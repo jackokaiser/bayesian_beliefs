@@ -37,7 +37,10 @@
               If astrology works (hypothesis "yes"), then I had 100% chance of meeting an old friend today, as my horoscope suggested. Hypothesis "yes": 100%.
             </q-card-section>
             <q-card-section class="q-pt-none">
-                If astrology does not work (hypothesis "no"), meeting an old friend by accident would happen maybe one day every 100 days, so 1%. Hypothesis "no": 1%.
+              If astrology does not work (hypothesis "no"), meeting an old friend by chance would happen approximately one day every 100 days, so 1%. Hypothesis "no": 1%.
+            </q-card-section>
+            <q-card-section class="q-pt-none">
+              Similarly, not meeting an old friend would also have been an event, unlikely if astrology works, and likely caused by chance.
             </q-card-section>
             <q-card-actions align="right">
               <q-btn flat label="Got it" color="primary" v-close-popup />
