@@ -1,7 +1,7 @@
 {
   "name": "bayesian",
   "version": "0.0.1",
-  "description": "Rationalize your beliefs with the bayesian method",
+  "description": "Rationalize your beliefs with the Bayesian method",
   "productName": "Bayesian Beliefs",
   "author": "Jacques KAISER <jackokaiser@gmail.com>",
   "private": true,

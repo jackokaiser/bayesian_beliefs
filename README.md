@@ -1,6 +1,11 @@
 # Bayesian Beliefs (bayesian)
 
-Rationalize your beliefs with the bayesian method
+## Rationalize your beliefs with the Bayesian method
+
+Add some questions you are unsure about, together with some likely hypothesis.
+Then, take note of every relevant events, and estimate the likelihood of this event if the hypothesis were true.
+The Bayesian method will take care of updating your beliefs in the hypothesis accordingly.
+
 
 ## Install the dependencies
 ```bash
