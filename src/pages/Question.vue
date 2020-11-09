@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-sm">
+  <div class="q-pa-md">
     <h4> {{ question.name }} </h4>
     <h5> Current beliefs </h5>
     <div class="column q-gutter-sm">

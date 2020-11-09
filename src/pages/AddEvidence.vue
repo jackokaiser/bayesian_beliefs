@@ -52,7 +52,7 @@
       <div class="column q-gutter-sm">
         <probability-bar v-for='hyp in question.hypothesis'
                          :key='hyp.id'
-                         color='secondary'
+                         color='primary'
                          v-model='likelihood[hyp.id].prob'
                          editable>
           {{ hyp.name }}

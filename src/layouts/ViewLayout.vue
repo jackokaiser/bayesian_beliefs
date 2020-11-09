@@ -8,7 +8,7 @@
           round
           icon="keyboard_backspace"
           aria-label="Back"
-          @click="$router.go(-1)"
+          @click="backArrow($router)"
         />
 
         <q-toolbar-title>
@@ -31,6 +31,12 @@
 
 <script>
 export default {
-  name: 'ViewLayout'
+  name: 'ViewLayout',
+  props: {
+    backArrow: {
+      type: Function,
+      default: function (router) { router.go(-1) }
+    }
+  }
 }
 </script>

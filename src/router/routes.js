@@ -10,9 +10,16 @@ const routes = [
     path: '/question/',
     component: () => import('layouts/ViewLayout.vue'),
     children: [
-      { path: ':questionId', component: () => import('pages/Question.vue'), name: 'question', props: true },
       { path: ':questionId/add-evidence', component: () => import('pages/AddEvidence.vue'), name: 'add-evidence', props: true },
       { path: ':questionId/add-hypothesis', component: () => import('pages/AddHypothesis.vue'), name: 'add-hypothesis', props: true }
+    ]
+  },
+  {
+    path: '/question/',
+    component: () => import('layouts/ViewLayout.vue'),
+    props: { backArrow: function (router) { router.push('/') } },
+    children: [
+      { path: ':questionId', component: () => import('pages/Question.vue'), name: 'question', props: true }
     ]
   },
   {
