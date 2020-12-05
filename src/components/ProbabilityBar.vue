@@ -49,6 +49,11 @@ export default {
       currentProb: this.value
     }
   },
+  watch: {
+    value (v) {
+      this.currentProb = v
+    }
+  },
   computed: {
     probStyle: function () {
       var before = this.percent(this.currentProb / 2.0)
