@@ -27,8 +27,7 @@
               </div>
 
               <div class="col-auto">
-                <q-btn color="grey-7" round flat icon="clear" @click="deleteEvent(ev.id)">
-                </q-btn>
+                <q-btn color="grey-7" round flat icon="clear" @click="deleteEvent(ev.id)" />
               </div>
             </div>
             <probability-bar

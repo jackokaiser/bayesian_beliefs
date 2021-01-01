@@ -14,7 +14,15 @@ web<template>
       >
         <q-card>
           <q-card-section class="q-pb-none">
-            <div class="text-h6">{{ question.name }}</div>
+            <div class="row items-center no-wrap">
+              <div class="col">
+                <div class="text-h6">{{ question.name }}</div>
+              </div>
+
+              <div class="col-auto">
+                <q-btn color="grey-7" round flat icon="clear" @click.prevent="askConfirmDelete(question.id)" />
+              </div>
+            </div>
           </q-card-section>
           <q-card-section class="q-gutter-sm q-pt-none">
             <q-separator />
@@ -30,6 +38,20 @@ web<template>
         </q-card>
       </q-item>
     </div>
+
+    <q-dialog v-model="confirmDelete" persistent>
+      <q-card>
+        <q-card-section class="row items-center">
+          <span class="q-ml-sm">This will delete all events in this question. Are you sure?</span>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="Cancel" color="primary" v-close-popup />
+          <q-btn flat label="Delete" color="primary" @click="deleteQuestion" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
     <div class="row">
       <q-page-sticky position="bottom-right" :offset="[18, 18]">
         <q-btn fab icon="add" color="accent" to="/add-question" />
@@ -59,11 +81,35 @@ export default {
     })
 
     return {
-      questions
+      questions,
+      confirmDelete: false,
+      idToDelete: null
     }
   },
   methods: {
-    questionUrl: function (question) { return '/question/' + question.id }
+    questionUrl (question) {
+      return '/question/' + question.id
+    },
+    askConfirmDelete (id) {
+      this.idToDelete = id
+      this.confirmDelete = true
+    },
+    deleteQuestion () {
+      this.confirmDelete = false
+
+      if (this.idToDelete === null) {
+        console.log('Can\'t delete: idToDelete is null!')
+        return
+      }
+
+      var that = this
+      const removeIdx = this.questions.findIndex(function (q) {
+        return q.id === that.idToDelete
+      })
+
+      this.questions.splice(removeIdx, 1)
+      LocalStorage.set('questions', this.questions)
+    }
   }
 }
 </script>

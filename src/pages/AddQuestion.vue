@@ -40,7 +40,7 @@ export default {
   methods: {
     onSubmit: function (evt) {
       var allQuestions = LocalStorage.getItem('questions') || []
-      var currentId = 0
+      var currentId = 1
       if (allQuestions.length > 0) {
         currentId = Math.max(...allQuestions.map(q => q.id)) + 1
       }
