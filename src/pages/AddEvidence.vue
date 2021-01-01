@@ -104,8 +104,9 @@ export default {
       const posteriors = this.question.hypothesis.map((hyp) => hyp.prob)
       console.log('posteriors: ', posteriors)
       console.log('new probs sum to 1:', posteriors.reduce((a, b) => a + b))
+      const lastId = this.question.evidences.length ? Math.max(...this.question.evidences.map((e) => e.id)) : 0
       this.question.evidences.push({
-        id: this.question.evidences.length,
+        id: lastId + 1,
         name: this.name,
         likelihood: this.likelihood,
         date: new Date()
