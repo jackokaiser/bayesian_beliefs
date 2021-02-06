@@ -6,6 +6,9 @@ Add some questions you are unsure about, together with some likely hypothesis.
 Then, take note of every relevant events, and estimate the likelihood of this event if the hypothesis were true.
 The Bayesian method will take care of updating your beliefs in the hypothesis accordingly.
 
+## Playstore update
+
+Manually bump up `versionCode` and `versionName` numbers in `src-capacitor/android/app/build.gradle`
 
 ## Install the dependencies
 ```bash
