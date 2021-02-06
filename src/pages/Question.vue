@@ -19,8 +19,17 @@
           class="evidences"
           v-for='ev in question.evidences.slice().reverse()'
           :key='ev.id'>
+
           <q-card-section class="q-gutter-sm">
-            <div class="text-subtitle6">{{ ev.name }}</div>
+            <div class="row items-center no-wrap">
+              <div class="col">
+                <div class="text-subtitle6">{{ ev.name }}</div>
+              </div>
+
+              <div class="col-auto">
+                <q-btn color="grey-7" round flat icon="clear" @click="deleteEvent(ev.id)" />
+              </div>
+            </div>
             <probability-bar
               color="secondary"
               v-for='(prob, hypId) in ev.likelihood'
@@ -75,6 +84,11 @@ export default {
     isYesNo: function (question) {
       const hyps = question.hypothesis
       return (hyps.length === 2) && (hyps[0].name === 'yes') && (hyps[1].name === 'no')
+    },
+    deleteEvent: function (id) {
+      const removeIdx = this.question.evidences.findIndex((e) => e.id === id)
+      this.question.evidences.splice(removeIdx, 1)
+      LocalStorage.set('question/' + this.question.id, this.question)
     }
   },
   props: ['questionId']
