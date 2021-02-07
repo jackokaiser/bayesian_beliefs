@@ -65,6 +65,7 @@
 <script>
 import { LocalStorage } from 'quasar'
 import ProbabilityBar from 'components/ProbabilityBar.vue'
+import { forwardBayesianStep, backwardBayesianStep } from '../lib/bayesian.js'
 
 export default {
   name: 'Question',
@@ -87,6 +88,16 @@ export default {
     },
     deleteEvent: function (id) {
       const removeIdx = this.question.evidences.findIndex((e) => e.id === id)
+      /* revert all bayesian updates which followed the removed index (inclusive) */
+      const evidencesToUnroll = this.question.evidences.slice(removeIdx).reverse()
+      const originalHypothesis = evidencesToUnroll.reduce(backwardBayesianStep, this.question.hypothesis)
+      console.log('original hypothesis before the removed evidence: ', originalHypothesis)
+
+      /* re-apply the forward bayesian steps without the removed evidence */
+      const evidencesToRoll = this.question.evidences.slice(removeIdx + 1)
+      this.question.hypothesis = evidencesToRoll.reduce(forwardBayesianStep, originalHypothesis)
+
+      /* finally remove the evidence from the list */
       this.question.evidences.splice(removeIdx, 1)
       LocalStorage.set('question/' + this.question.id, this.question)
     }

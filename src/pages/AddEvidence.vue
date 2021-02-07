@@ -71,6 +71,7 @@
 <script>
 import ProbabilityBar from 'components/ProbabilityBar.vue'
 import { LocalStorage } from 'quasar'
+import { forwardBayesianStep } from '../lib/bayesian.js'
 
 export default {
   name: 'AddEvidence',
@@ -92,25 +93,17 @@ export default {
   },
   methods: {
     onSubmit: function (evt) {
-      /* update beliefs using the bayes formula */
-      var marginalLikelihood = 0.0
-      this.question.hypothesis.forEach((hyp) => {
-        marginalLikelihood += hyp.prob * this.likelihood[hyp.id].prob
-      })
-      console.log('marginal:', marginalLikelihood)
-      this.question.hypothesis.forEach((hyp) => {
-        hyp.prob = hyp.prob * this.likelihood[hyp.id].prob / marginalLikelihood
-      }, this)
-      const posteriors = this.question.hypothesis.map((hyp) => hyp.prob)
-      console.log('posteriors: ', posteriors)
-      console.log('new probs sum to 1:', posteriors.reduce((a, b) => a + b))
       const lastId = this.question.evidences.length ? Math.max(...this.question.evidences.map((e) => e.id)) : 0
-      this.question.evidences.push({
+      const evidence = {
         id: lastId + 1,
         name: this.name,
         likelihood: this.likelihood,
         date: new Date()
-      })
+      }
+      this.question.evidences.push(evidence)
+      this.question.hypothesis = forwardBayesianStep(this.question.hypothesis, evidence)
+      console.log('Check that the posteriors sum to 1: ', this.question.hypothesis.reduce((sum, hyp) => sum + hyp.prob, 0))
+
       LocalStorage.set('question/' + this.question.id, this.question)
       this.$router.replace({ name: 'question', params: { questionId: this.question.id } })
     },
