@@ -33,7 +33,7 @@
 <script>
 import ProbabilityBar from 'components/ProbabilityBar.vue'
 import { LocalStorage } from 'quasar'
-import { addHypothesisWithProb } from '../lib/bayesian.js'
+import { addHypothesisWithProb } from 'src/lib/bayesian.js'
 
 export default {
   name: 'AddHypothesis',

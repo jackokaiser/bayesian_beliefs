@@ -71,7 +71,7 @@
 <script>
 import ProbabilityBar from 'components/ProbabilityBar.vue'
 import { LocalStorage } from 'quasar'
-import { forwardBayesianStep } from '../lib/bayesian.js'
+import { forwardBayesianStep } from 'src/lib/bayesian.js'
 
 export default {
   name: 'AddEvidence',

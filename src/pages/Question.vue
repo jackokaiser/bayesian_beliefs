@@ -65,7 +65,7 @@
 <script>
 import { LocalStorage } from 'quasar'
 import ProbabilityBar from 'components/ProbabilityBar.vue'
-import { forwardBayesianStep, backwardBayesianStep } from '../lib/bayesian.js'
+import { forwardBayesianStep, backwardBayesianStep } from 'src/lib/bayesian.js'
 
 export default {
   name: 'Question',
