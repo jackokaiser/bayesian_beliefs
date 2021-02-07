@@ -33,6 +33,7 @@
 <script>
 import ProbabilityBar from 'components/ProbabilityBar.vue'
 import { LocalStorage } from 'quasar'
+import { addHypothesisWithProb } from '../lib/bayesian.js'
 
 export default {
   name: 'AddHypothesis',
@@ -52,15 +53,7 @@ export default {
   },
   methods: {
     onSubmit: function (evt) {
-      this.question.hypothesis.forEach((hyp) => {
-        hyp.prob = hyp.prob * (1 - this.hypothesis.prob)
-      })
-
-      if (this.question.hypothesis.length === 0) {
-        this.hypothesis.prob = 1.0
-      }
-
-      this.question.hypothesis.push(this.hypothesis)
+      this.question.hypothesis = addHypothesisWithProb(this.question.hypothesis, this.hypothesis)
       LocalStorage.set('question/' + this.question.id, this.question)
       this.$router.replace({ name: 'question', params: { questionId: this.question.id } })
     },

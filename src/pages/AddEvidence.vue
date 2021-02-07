@@ -102,7 +102,6 @@ export default {
       }
       this.question.evidences.push(evidence)
       this.question.hypothesis = forwardBayesianStep(this.question.hypothesis, evidence)
-      console.log('Check that the posteriors sum to 1: ', this.question.hypothesis.reduce((sum, hyp) => sum + hyp.prob, 0))
 
       LocalStorage.set('question/' + this.question.id, this.question)
       this.$router.replace({ name: 'question', params: { questionId: this.question.id } })

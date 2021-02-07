@@ -89,13 +89,24 @@ export default {
     deleteEvent: function (id) {
       const removeIdx = this.question.evidences.findIndex((e) => e.id === id)
       /* revert all bayesian updates which followed the removed index (inclusive) */
+      /* store the initial probs of hypothesis added along the way */
       const evidencesToUnroll = this.question.evidences.slice(removeIdx).reverse()
-      const originalHypothesis = evidencesToUnroll.reduce(backwardBayesianStep, this.question.hypothesis)
+      const { initials, hypothesis: originalHypothesis } = evidencesToUnroll.reduce(({ initials, hypothesis }, evidence) => ({
+        initials: initials.concat(hypothesis.filter(hyp => !(hyp.id in evidence.likelihood))),
+        hypothesis: backwardBayesianStep(hypothesis, evidence)
+      }), {
+        initials: [],
+        hypothesis: this.question.hypothesis
+      })
+
       console.log('original hypothesis before the removed evidence: ', originalHypothesis)
 
       /* re-apply the forward bayesian steps without the removed evidence */
       const evidencesToRoll = this.question.evidences.slice(removeIdx + 1)
-      this.question.hypothesis = evidencesToRoll.reduce(forwardBayesianStep, originalHypothesis)
+      const forwardWithInitials = (hypothesis, evidence) => forwardBayesianStep(hypothesis, evidence, initials)
+
+      this.question.hypothesis = evidencesToRoll.reduce(forwardWithInitials,
+        originalHypothesis)
 
       /* finally remove the evidence from the list */
       this.question.evidences.splice(removeIdx, 1)
